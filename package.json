@@ -20,7 +20,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "full": "npm run build && start http://localhost:3000 && serve build/"
+    "full": "npm run build && start http://localhost:3000 && serve docs"
   },
   "eslintConfig": {
     "extends": [
