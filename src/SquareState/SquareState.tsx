@@ -4,9 +4,7 @@ import { useState } from "react";
 function SquareState() {
   const [value, setValue] = useState("");
   return (
-    <>
-      <button className="square" onClick={handleClick}>{ value }</button>
-    </>
+    <button className="square" onClick={handleClick}>{ value }</button>
   );
 
   function handleClick() {
