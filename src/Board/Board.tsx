@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Board.css';
 import Square from 'Square/Square';
 import SquareState from 'SquareState/SquareState';
@@ -11,6 +11,7 @@ type Props = {
 }
 
 function Board(props: Props) {
+  const [show, setShow] = useState(false);
   const xIsNext = props.xIsNext;
   const squares = props.squares;
   const onPlay = props.onPlay;
@@ -39,8 +40,10 @@ function Board(props: Props) {
         <SquareXO value={squares[7]} onSquareClick={() => handleClick(7)}/>
         <SquareXO value={squares[8]} onSquareClick={() => handleClick(8)}/>
       </div>
+      {!show && <button onClick={() => setShow(show => !show)}>Show</button>}
+      {show && <button onClick={() => setShow(show => !show)}>Hide</button>}
 
-      <div className="old-row">
+      {show && <div className="old-row">
         <div className="mr10">
           <div className="board-row">
             <SquareState />
@@ -76,7 +79,7 @@ function Board(props: Props) {
             <Square value={9} />
           </div>
         </div>
-      </div>
+      </div>}
     </>
   );
 
