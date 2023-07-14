@@ -2,6 +2,11 @@
   "name": "react-tic-tac-toe",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "start": "vite",
+    "build": "vite build",
+    "full": "npm run build && start http://localhost:3000 && serve docs"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -11,16 +16,13 @@
     "@types/react-dom": "^18.2.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1",
-    "typescript": "^4.9.5",
-    "web-vitals": "^2.1.4"
+    "typescript": "^4.9.5"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "full": "npm run build && start http://localhost:3000 && serve docs"
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.0.3",
+    "serve": "^14.2.0",
+    "vite": "^4.4.3",
+    "vite-tsconfig-paths": "^4.2.0"
   },
   "eslintConfig": {
     "extends": [
@@ -39,9 +41,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "serve": "^14.2.0"
   },
   "homepage": "."
 }

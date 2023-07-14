@@ -15,10 +15,12 @@ function Board(props: Props) {
   const xIsNext = props.xIsNext;
   const squares = props.squares;
   const onPlay = props.onPlay;
-  const winner = calculateWinner(squares);
+  const endGame = calculateWinner(squares);
   let status;
-  if (winner) {
-    status = "Winner: " + winner;
+  if (endGame && endGame.line === null) {
+    status = "The game is a " + endGame.winner;
+  } else if (endGame) {
+    status = "Winner: " + endGame.winner;
   } else {
     status = "Next player: " + (xIsNext ? "X" : "O");
   }
@@ -26,19 +28,19 @@ function Board(props: Props) {
     <>
       <div className="status">{status}</div>
       <div className="board-row">
-        <SquareXO value={squares[0]} onSquareClick={() => handleClick(0)}/>
-        <SquareXO value={squares[1]} onSquareClick={() => handleClick(1)}/>
-        <SquareXO value={squares[2]} onSquareClick={() => handleClick(2)}/>
+        <SquareXO value={squares[0]} onSquareClick={() => handleClick(0)} winningSquare={endGame?.line?.includes(0)}/>
+        <SquareXO value={squares[1]} onSquareClick={() => handleClick(1)} winningSquare={endGame?.line?.includes(1)}/>
+        <SquareXO value={squares[2]} onSquareClick={() => handleClick(2)} winningSquare={endGame?.line?.includes(2)}/>
       </div>
       <div className="board-row">
-        <SquareXO value={squares[3]} onSquareClick={() => handleClick(3)}/>
-        <SquareXO value={squares[4]} onSquareClick={() => handleClick(4)}/>
-        <SquareXO value={squares[5]} onSquareClick={() => handleClick(5)}/>
+        <SquareXO value={squares[3]} onSquareClick={() => handleClick(3)} winningSquare={endGame?.line?.includes(3)}/>
+        <SquareXO value={squares[4]} onSquareClick={() => handleClick(4)} winningSquare={endGame?.line?.includes(4)}/>
+        <SquareXO value={squares[5]} onSquareClick={() => handleClick(5)} winningSquare={endGame?.line?.includes(5)}/>
       </div>
       <div className="board-row">
-        <SquareXO value={squares[6]} onSquareClick={() => handleClick(6)}/>
-        <SquareXO value={squares[7]} onSquareClick={() => handleClick(7)}/>
-        <SquareXO value={squares[8]} onSquareClick={() => handleClick(8)}/>
+        <SquareXO value={squares[6]} onSquareClick={() => handleClick(6)} winningSquare={endGame?.line?.includes(6)}/>
+        <SquareXO value={squares[7]} onSquareClick={() => handleClick(7)} winningSquare={endGame?.line?.includes(7)}/>
+        <SquareXO value={squares[8]} onSquareClick={() => handleClick(8)} winningSquare={endGame?.line?.includes(8)}/>
       </div>
       {!show && <button onClick={() => setShow(show => !show)}>Show</button>}
       {show && <button onClick={() => setShow(show => !show)}>Hide</button>}
@@ -112,7 +114,9 @@ function Board(props: Props) {
     for (let i = 0; i < lines.length; i++) {
       const [a, b, c] = lines[i];
       if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-        return squares[a];
+        return { winner: squares[a], line: lines[i] };
+      } else if (squares.filter(square => square !== null).length === 9) {
+        return { winner: "draw", line: null};
       }
     }
     return null;
